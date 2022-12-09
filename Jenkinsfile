@@ -1,4 +1,4 @@
-node {
+node("slave") {
   def image
    stage ('checkout') {
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/harshalkathar/myfirstapp.git']]])      
@@ -6,7 +6,7 @@ node {
    
    stage ('Build') {
         def image
-  def mvnHome = tool 'M2_HOME'
+  def mvnHome = tool 'Maven'
          sh "mvn clean package"           
         }
     stage('Build image') {
